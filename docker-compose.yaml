@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  loadbalancer:
+    build:
+      context: ../loadbalancer
+      dockerfile : ../loadbalancer/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - instance_1
+      - instance_2
+      - instance_3
+
+  instance_1:
+    build:
+      context: .
+      dockerfile:  docker/instance/Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+
+  instance_2:
+    build:
+      dockerfile: docker/instance/Dockerfile
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+
+  instance_3:
+    build:
+      dockerfile: docker/instance/Dockerfile
+    ports:
+      - "8083:8080"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    volumes:
+      - C:\Users\willhelmatiq\IdeaProjects\springapplicationforcloud\docker\db\postgres:/var/lib/postgresql/data
+    env_file:
+      - docker/db/postgres.properties
+    ports:
+      - "5430:5432"
