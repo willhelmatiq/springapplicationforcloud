@@ -20,6 +20,7 @@ services:
       - "8081:8080"
     depends_on:
       - postgres
+      - rabbitmq
 
   instance_2:
     build:
@@ -28,6 +29,7 @@ services:
       - "8082:8080"
     depends_on:
       - postgres
+      - rabbitmq
 
   instance_3:
     build:
@@ -36,6 +38,7 @@ services:
       - "8083:8080"
     depends_on:
       - postgres
+      - rabbitmq
 
   postgres:
     image: postgres:latest
@@ -45,3 +48,9 @@ services:
       - docker/db/postgres.properties
     ports:
       - "5430:5432"
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
