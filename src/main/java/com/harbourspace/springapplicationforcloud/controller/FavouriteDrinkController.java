@@ -26,7 +26,7 @@ public class FavouriteDrinkController {
         return drinkService.getFavouriteDrinkLeaderboard();
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<String> addFavouriteDrink(@RequestBody Drink drink) {
         drinkService.addDrink(drink);
         return new ResponseEntity<>(HttpStatus.CREATED);
